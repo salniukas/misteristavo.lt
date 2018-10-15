@@ -39,8 +39,8 @@ return [
             'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
         ],
      'paysera' => [
-         'projectid' => 'xxxxxx',
-         'password' => 'xxxxxxxxxxxxxxxxxxxxxxxxxxx',
+         'projectid' => '124496',
+         'password' => '9d59637d4cc60029d3e9498f0d943286',
          'accepturl' => 'http://127.0.0.1:8000/paysera/uzsakymas-pavyko',
          'cancelurl' => 'http://127.0.0.1:8000/paysera/uzsakymas-nepavyko',
          'callbackurl' => 'http://127.0.0.1:8000/paysera/callback',
