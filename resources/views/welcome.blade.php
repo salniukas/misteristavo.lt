@@ -191,23 +191,7 @@
 					    <p>Tel. +37067782422</p>
 					  </div>
 					</div>
-					<div class="dropdown">
-					  <button class="dropbtn">Apie</button>
-					  <div class="dropdown-content">
-						<p>
-							misteristavo.lt tai, internetinė svetainė kurioje užsiregistravę vartotojai gali tiesiogiai įtakoti kūrybos procesus remdami juos piniginėmis įmokomis. 
-							Svetainėje projektu laikoma kūrybinė autoriaus/jo komandos veikla. Detaliai aprašyta ir pateikta ''fondų'' sąraše. 
-							Fondo reikšmė svetainėje atitinka kultūros paramos fondo sąvoką . Tai konkretaus tikslo siekiantis projektas/uždavinys, reikalaujantis finansinių išteklių. 
-							Svetainėje vartotojas gali nusipirkti taškų kuriuos gali naudoti sąraše pateiktiems Fondams remti, taip paspartindamas šių įgyvendinimą. 
-							Taškų santykis euro atžvilgiu 1 prie 1.
-							Vartotojas negali dalyvauti rėmimo procese nesusipažinęs su svetaines paslaugų tiekimo taisyklėmis.
-							Paslaugų tiekimo sutartyje vartotojas konkrečiai supažindinamas su galimais rizikos faktoriais, bei įvertinęs šiuos, gali pasirinkti nesutikti dalyvauti veikloje.
-							Projekto idėja, padėti finansuoti mano kaip kūrėjo darbą ties:
-							video produkcija
-							edukacinės medžiagos pateikimą įvairiais formatais.
-						</p>
-					  </div>
-					</div>
+					<a href="#" onclick="return false;" class="button dropbtn" data-modal="modalFour">Apie</a>
                     <div class="dropdown">
 					  <button class="dropbtn">Fondų Sąrašas</button>
 					  <div class="dropdown-content">
@@ -259,6 +243,27 @@
 			</p>
 		  </div>
 		</div>
+
+		<div id="modalFour" class="modal">
+		  <!-- Modal content -->
+		  <div class="modal-content">
+		    <span class="close">&times;</span>
+		    <center><h2>Apie Misteristavo.lt</h2></center>
+		    <p style="text-align: center;">
+		    	misteristavo.lt tai, internetinė svetainė kurioje užsiregistravę vartotojai gali tiesiogiai įtakoti kūrybos procesus remdami juos piniginėmis įmokomis.<br><br>
+				Svetainėje projektu laikoma kūrybinė autoriaus/jo komandos veikla. Detaliai aprašyta ir pateikta ''fondų'' sąraše. 
+				Fondo reikšmė svetainėje atitinka kultūros paramos fondo sąvoką . Tai konkretaus tikslo siekiantis projektas/uždavinys, reikalaujantis finansinių išteklių. <br><br>
+				Svetainėje vartotojas gali nusipirkti taškų kuriuos gali naudoti sąraše pateiktiems Fondams remti, taip paspartindamas šių įgyvendinimą. 
+				Taškų santykis euro atžvilgiu 1 prie 1.
+				Vartotojas negali dalyvauti rėmimo procese nesusipažinęs su svetaines paslaugų tiekimo taisyklėmis.<br><br>
+				Paslaugų tiekimo sutartyje vartotojas konkrečiai supažindinamas su galimais rizikos faktoriais, bei įvertinęs šiuos, gali pasirinkti nesutikti dalyvauti veikloje.
+				Projekto idėja, padėti finansuoti mano kaip kūrėjo darbą ties:
+				video produkcija
+				edukacinės medžiagos pateikimą įvairiais formatais.
+			</p>
+		  </div>
+		</div>
+
         <script type="text/javascript" charset="utf-8">
 			var wtpQualitySign_projectId  = 124496;
 			var wtpQualitySign_language   = "lt";
