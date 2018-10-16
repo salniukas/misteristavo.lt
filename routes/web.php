@@ -20,7 +20,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/apmokejimas', function () { return view('payment'); });
+Route::group(['middleware' => 'web'], function () {
+	Route::get('/apmokejimas', function () { return view('payment'); });
+});
 Route::post('/paysera/redirect', 'PayseraGateway@redirect')->name('paysera-redirect');
 Route::get('/paysera/callback', 'PayseraGateway@callback')->name('paysera-callback');
 Route::get('/paysera/uzsakymas-pavyko', function () { return view('paysera.success'); });

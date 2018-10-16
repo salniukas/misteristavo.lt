@@ -12,7 +12,7 @@ class PayseraGateway extends Controller
 		$config = config('services.paysera');
 
 		// Nustatome pagal nuožiūrą
-		$orderId = 999999999;
+		$orderId = 1;
 
 		$params = [
 		    'projectid' => $config['projectid'],
