@@ -195,7 +195,7 @@
 					  <button class="dropbtn">Apie</button>
 					  <div class="dropdown-content">
 						<p>
-							Internetinė svetainė kurioje užsiregistravę vartotojai gali tiesiogiai įtakoti kūrybos procesus remdami juos piniginėmis įmokomis. 
+							misteristavo.lt tai, internetinė svetainė kurioje užsiregistravę vartotojai gali tiesiogiai įtakoti kūrybos procesus remdami juos piniginėmis įmokomis. 
 							Svetainėje projektu laikoma kūrybinė autoriaus/jo komandos veikla. Detaliai aprašyta ir pateikta ''fondų'' sąraše. 
 							Fondo reikšmė svetainėje atitinka kultūros paramos fondo sąvoką . Tai konkretaus tikslo siekiantis projektas/uždavinys, reikalaujantis finansinių išteklių. 
 							Svetainėje vartotojas gali nusipirkti taškų kuriuos gali naudoti sąraše pateiktiems Fondams remti, taip paspartindamas šių įgyvendinimą. 
