@@ -12,7 +12,9 @@ class PayseraGateway extends Controller
 		$config = config('services.paysera');
 
 		// Nustatome pagal nuožiūrą
-		$orderId = 1;
+		Order::create(request(['username', 'email', 'amount']));
+		$order = Order::orderBy('created_at', 'DESC')->firstOrFail();
+		$orderId = $order->id;
 
 		$params = [
 		    'projectid' => $config['projectid'],
@@ -36,7 +38,7 @@ class PayseraGateway extends Controller
 
 	public function callback (Request $request)
 	{
-		$sign = $config = config('services.paysera.password');
+	   $sign = $config = config('services.paysera.password');
 	   $data = $request->data;
 	   $ss1 = $request->ss1;
 

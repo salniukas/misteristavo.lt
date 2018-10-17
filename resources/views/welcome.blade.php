@@ -174,7 +174,7 @@
                 <div class="links">
                     @if (Route::has('login'))
                         @auth
-                        <a href="#">Pagrindinis</a>
+                        <a href="{{ route('home') }}">Pagrindinis</a>
                         @else
                             <a href="{{ route('login') }}">Prisijungti</a>
 
