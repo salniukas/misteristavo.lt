@@ -14,7 +14,7 @@
 
     button.button {
         background:none;
-        border: none;
+        border: 1px solid;
         color: black;
         padding: 12px 16px;
         text-decoration: none;
@@ -25,48 +25,30 @@
     button.button:hover {
        color: #b1b5b7;
     }
-    .modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }
-
-    /* Modal Content/Box */
-    .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto; /* 15% from the top and centered */
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%; /* Could be more or less, depending on screen size */
-    }
-
-    /* The Close Button */
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
 </style>
 @endsection
 @section('content')
 
 <div class="container">
     <div class="row justify-content-center">
+    <div id="" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3></h3>
+            <p>1t. = 1€</p>
+            <form action="../paysera/redirect" method="get">
+                @csrf
+                <label for="amount">Norimas Taškų kiekis</label>
+                <input type="text" name="amount" required min="1">
+
+                <input type="hidden" name="username" value="{{ Auth::user()->name }}">
+                <input type="hidden" name="email" value="{{ Auth::user()->email }}">
+
+                <button type="submit">Pildyti</input>
+            </form>
+        </div>
+    </div>
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Profilis</div>
@@ -82,14 +64,14 @@
                     <br>
                     <br>
                     <br>
-                    <button id="myBtn" class="button">Pildyti Balansą</button>
-                    <button type="button" data-toggle="modal" data-target="#myModal">Open Modal</button>
+                    <button type="button" id="myBtn" class="button" data-toggle="modal" data-target="#myModal">Pildyti Balansą</button>
+                    {{-- <button type="button" data-toggle="modal" data-target="#myModal">Open Modal</button> --}}
                 </div>
             </div>
             <br>
             <br>
             <div class="card">
-                <div class="card-header">Paskutiniai 5 taškų panaudojimai:</div>
+                <div class="card-header">Remiami Projektai:</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -100,19 +82,28 @@
 
                     <table style="width: 100%">
                       <tr>
-                        <th>Projektas</th>
-                        <th>Data</th> 
-                        <th>Kiekis</th>
+                        <th>Projektas</th> 
+                        <th>Kiekis taškais</th>
                       </tr>
                       <tr>
                         <td>Jill</td>
-                        <td>Smith</td> 
                         <td>50</td>
                       </tr>
                       <tr>
                         <td>Eve</td>
-                        <td>Jackson</td> 
                         <td>94</td>
+                      </tr>
+                      <tr>
+                        <td>John</td>
+                        <td>69</td>
+                      </tr>
+                      <tr>
+                        <td>Danguolius</td>
+                        <td>150</td>
+                      </tr>
+                      <tr>
+                        <td>PupyteXD</td>
+                        <td>1</td>
                       </tr>
                     </table>
                 </div>
@@ -120,52 +111,46 @@
         </div>
     </div>
 </div>
-<div id="myModal" class="modal">
-    <!-- Modal content -->
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
-        <span class="close">&times;</span>
-        <h3>Taškų Pildymas</h3>
-        <p>1t. = 1€</p>
-        <form action="../paysera/redirect" method="get">
-            @csrf
-            <label for="amount">Norimas Taškų kiekis</label>
-            <input type="text" name="amount" required min="1">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Taškų Pildymas</h5><br>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <form action="../paysera/redirect" method="post" id="form1">
+                @csrf
+                <label for="amount">Norimas Taškų kiekis</label><br>
+                <input type="number" name="amount" id="amount" onkeyup="sumIt()" onclick="sumIt()" min="1" required  style="width: 50px;"><br><br>
 
-            <input type="hidden" name="username" value="{{ Auth::user()->name }}">
-            <input type="hidden" name="email" value="{{ Auth::user()->email }}">
+                <input type="hidden" name="username" value="{{ Auth::user()->name }}">
+                <input type="hidden" name="email" value="{{ Auth::user()->email }}">
 
-            <input type="submit">Pildyti</input>
-        </form>
+                <h5 id="myText" style="margin-right: 130px;">Viso mokėti: </h5>
+            </form>
+      </div>
+      <div class="modal-footer">
+            
+        <button type="submit" form="form1" class="btn btn-primary">Apmokėti</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+        
+      </div>
     </div>
+  </div>
 </div>
-
 @endsection
 @section('script')
-<script type="text/javascript">
-// Get the modal
-var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal 
-btn.onclick = function() {
-    modal.style.display = "block";
+<script>
+function sumIt(){
+    var input = document.getElementById('amount').value;
+    document.getElementById("myText").innerText = "Viso mokėti: " + input + '€';
+    console.log(input);
 }
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
+</script> 
 @endsection

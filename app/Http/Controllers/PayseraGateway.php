@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Order;
+use App\User;
+use Auth;
 
 class PayseraGateway extends Controller
 {
@@ -15,6 +18,7 @@ class PayseraGateway extends Controller
 		Order::create(request(['username', 'email', 'amount']));
 		$order = Order::orderBy('created_at', 'DESC')->firstOrFail();
 		$orderId = $order->id;
+		$amount = $request->amount * 100;
 
 		$params = [
 		    'projectid' => $config['projectid'],
@@ -25,6 +29,7 @@ class PayseraGateway extends Controller
 		    'version' => $config['version'],
 		    'test' => $config['test'],
 		    'p_email' => $request->email,
+		    'amount' => $amount,
 		 ];
 		// Užkoduojame parametrus ir paruošiame parašą.
 		 $params = http_build_query($params);
@@ -47,8 +52,16 @@ class PayseraGateway extends Controller
 	       // Iškoduojame parametrus
 	       $params = array();
 	       parse_str(base64_decode(strtr($request->data, array('-' => '+', '_' => '/'))), $params);
+	      $status = $params['status'];
+		  $p_email = $params['p_email'];
+		  $amount = $params['amount'] / 100;
+		  $order = Order::where('email', $p_email)->first();
+		  $user = User::where('email', $p_email)->first();
+		  $user->points = $amount;
+		  $user->save();
+		  $order->approved = 'done';
+		  $order->save();
 	      
-	       // Naudojame pvz.: $p_email, $name, $surname kintamuosius užsakymo patvirtinimui.
 	   }
 	 
 	 return response('OK', 200);
