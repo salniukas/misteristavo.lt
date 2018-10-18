@@ -25,5 +25,5 @@ Route::group(['middleware' => 'web'], function () {
 });
 Route::post('/paysera/redirect', 'PayseraGateway@redirect')->name('paysera-redirect');
 Route::get('/paysera/callback', 'PayseraGateway@callback')->name('paysera-callback');
-Route::get('/paysera/uzsakymas-pavyko', function () { return view('paysera.success'); });
+Route::get('/paysera/uzsakymas-pavyko', function () { return view('accept'); });
 Route::get('/paysera/uzsakymas-nepavyko', function () { return view('paysera.success'); });

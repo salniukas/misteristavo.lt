@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+Use Log;
+
 use App\Order;
 use App\User;
 use Auth;
@@ -12,7 +14,7 @@ class PayseraGateway extends Controller
     public function redirect (Request $request)
 	{
 		// Paimame payseros nustatymus iš config/services.php failo
-		$config = config('services.paysera');
+		
 
 		// Nustatome pagal nuožiūrą
 		Order::create(request(['username', 'email', 'amount']));
@@ -20,6 +22,10 @@ class PayseraGateway extends Controller
 		$orderId = $order->id;
 		$amount = $request->amount * 100;
 
+
+
+		$config = config('services.paysera');
+		Log::info($config);
 		$params = [
 		    'projectid' => $config['projectid'],
 		    'orderid' => $orderId,
@@ -32,13 +38,16 @@ class PayseraGateway extends Controller
 		    'amount' => $amount,
 		 ];
 		// Užkoduojame parametrus ir paruošiame parašą.
-		 $params = http_build_query($params);
-		 $params = base64_encode($params);
-		 $data = str_replace('/', '_', str_replace('+', '-', $params));
-		 $sign = md5($data . $config['password']);
+		$params = http_build_query($params);
+		$params = base64_encode($params);
+		$data = str_replace('/', '_', str_replace('+', '-', $params));
+		$sign = md5($data . $config['password']);
+
+		 Log::info($sign);
+		 Log::info($amount);
 
 		// Nukreipiame vartotoją į Payseros puslapį.
-		 return redirect('https://www.paysera.com/pay/' . '?data=' . $data . '&sign=' . $sign);
+		return redirect('https://www.paysera.com/pay/' . '?data=' . $data . '&sign=' . $sign);
 	}
 
 	public function callback (Request $request)
