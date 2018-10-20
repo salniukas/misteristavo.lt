@@ -228,6 +228,7 @@
 				@else
 					<center><button class="button">Norint paremti šį projektą prisijungite</button></center>
 				@endauth
+				@auth
 				<div id="modal{{$project->id}}d" class="modal">
 				  <div class="modal-content">
 				    <span class="close">&times;</span>
@@ -244,6 +245,9 @@
 		            </form></center>
 				  </div>
 				</div>
+				@else
+				
+				@endauth
 
 			  </div>
 			</div>
