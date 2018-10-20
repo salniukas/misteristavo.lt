@@ -43,9 +43,6 @@ class PayseraGateway extends Controller
 		$data = str_replace('/', '_', str_replace('+', '-', $params));
 		$sign = md5($data . $config['password']);
 
-		 Log::info($sign);
-		 Log::info($amount);
-
 		// Nukreipiame vartotoją į Payseros puslapį.
 		return redirect('https://www.paysera.com/pay/' . '?data=' . $data . '&sign=' . $sign);
 	}

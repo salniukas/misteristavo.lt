@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', 'HomeController@main');
 
 Auth::routes();
 
@@ -22,6 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'web'], function () {
 	Route::get('/apmokejimas', function () { return view('payment'); });
+	Route::post('/donate', 'HomeController@donate');
 });
 Route::post('/paysera/redirect', 'PayseraGateway@redirect')->name('paysera-redirect');
 Route::get('/paysera/callback', 'PayseraGateway@callback')->name('paysera-callback');

@@ -85,11 +85,13 @@
                         <th>Projektas</th> 
                         <th>Kiekis taškais</th>
                       </tr>
+                      @foreach($grouped as $group)
                       <tr>
-                        <td>Jill</td>
-                        <td>50</td>
+                        <td>{!! $group->first()->project !!}</td>
+                        <td>{{ $group->sum('amount')}}</td>
                       </tr>
-                      <tr>
+                      @endforeach
+{{--                       <tr>
                         <td>Eve</td>
                         <td>94</td>
                       </tr>
@@ -104,7 +106,7 @@
                       <tr>
                         <td>PupyteXD</td>
                         <td>1</td>
-                      </tr>
+                      </tr> --}}
                     </table>
                 </div>
             </div>
@@ -137,7 +139,7 @@
       <div class="modal-footer">
             
         <button type="submit" form="form1" class="btn btn-primary">Apmokėti</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Uždaryti</button>
         
         
       </div>

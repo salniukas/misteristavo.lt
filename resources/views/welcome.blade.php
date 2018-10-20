@@ -9,6 +9,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
         <!-- Styles -->
         <style>
@@ -161,6 +162,12 @@
 			button.button:hover {
 			  color: #b1b5b7;
 			}
+			.progress, .progress-bar{
+			    height: 28px;
+			}
+			.progress-bar{
+				padding: 4px;
+			}
         </style>
     </head>
     <body>
@@ -195,55 +202,54 @@
                     <div class="dropdown">
 					  <button class="dropbtn">Fondų Sąrašas</button>
 					  <div class="dropdown-content">
-					    <button class="button" data-modal="modalOne">„Dangaus Legendos”</button>
-					    <button class="button" data-modal="modalTwo">„Dienoraštis” Serija</button>
-					    <button class="button" data-modal="modalThree">„Pasidaryk Pats” Serija</button>
+					  	@foreach($projects as $project)
+					    	<button class="button" data-modal="modal{{ $project->id }}">{{ $project->display_name }}</button>
+					    @endforeach
 					  </div>
 					</div>
                 </div>
             </div>
         </div>
-		<!-- The Modal -->
-		<div id="modalOne" class="modal">
-		  <!-- Modal content -->
-		  <div class="modal-content">
-		    <span class="close">&times;</span>
-		    <center><img src="/img/logo.png"></center>
-		    <p style="text-align: center;">
-		    	Tai „Minecraft” žaidimo serveris, skirtas žaidėjams išmėginti savo įgūdžius dangaus saloje.<br>
-				Prisijungęs žaidėjas galės ne tik išmėginti savo turimas žinias apie „Minecraft” žaidimą, bet ir išmokti naujų, mėgindamas naujai įdiegtas serverio mechanikas.<br>
-				Žaidimo eiga yra suskirstyta į kelias kategorijas:<br>
-				Alchemija - elementai išgaunami juos maišant su kitais.<br>
-				Mechanika - įvairių procesų automatizavimas, manipuliavimas skysčiais.<br>
-				Agronomija - nauji būdai kaip išgauti įvairią augaliją.<br>
-				Fondo tikslas yra toliau tęsti darbus ties šiuo projektu apmokant už suteikiamas paslaugas prie projekto dirbantiems.
-			</p>
-		  </div>
-		</div>
+        @foreach($projects as $project)
+			<div id="modal{{ $project->id }}" class="modal">
+			  <div class="modal-content">
+			    <span class="close">&times;</span>
+			    @if($project->logo)
+			    	<center><img src="{{ $project->logo }}"></center>
+			    @else
+			    	<center><h2>{{$project->display_name}}</h2></center>
+			    @endif
+			    <p style="text-align: center;">
+			    	{!! $project->description !!}<br><br>
+				</p>
+				<center><h3>Surinkta Taškų: {{$project->current}}/{{$project->max}}</h3></center>
+				@auth
+					<center><button class="button" data-modal="modal{{$project->id}}d">Paremti šį projektą</button></center>
+				@else
+					<center><button class="button">Norint paremti šį projektą prisijungite</button></center>
+				@endauth
+				<div id="modal{{$project->id}}d" class="modal">
+				  <div class="modal-content">
+				    <span class="close">&times;</span>
+				    <center><h2>Paremti šį Projektą</h2></center>
+		            <center><form action="/donate" method="post">
+		                @csrf
+		                <label for="amount">Kiek taškų norite skirti?</label><br>
+		                <input type="number" name="amount" id="amount" onkeyup="points()" onclick="points()" min="1" required  style="width: 50px;"><br><br>
 
-		<div id="modalTwo" class="modal">
-		  <!-- Modal content -->
-		  <div class="modal-content">
-		    <span class="close">&times;</span>
-		    <center><h2>Dienoraštis</h2></center>
-		    <p style="text-align: center;">
-		    	Tai  vaidybinis serialas pasakojantis apie veikėjų išgyvenimus pasaulyje kurį jie mėgina pažinti.
-				Šis fondas skirtas sukurti specialią seriją kuri papildys YouTube grojaraščio sąraše esančias serijas.
-			</p>
-		  </div>
-		</div>
-		<div id="modalThree" class="modal">
-		  <!-- Modal content -->
-		  <div class="modal-content">
-		    <span class="close">&times;</span>
-		    <center><h2>Pasigamink Pats</h2></center>
-		    <p style="text-align: center;">
-		    	Tai serijos kuriuose iš įvairių dalykų yra mėginama sukurti kažką praktiško. Nauja serija, naujas kūrinys.
-				Šis fondas skirtas sukurti naują „Pasidaryk Pats” seriją.
-			</p>
-		  </div>
-		</div>
+		                <input type="hidden" name="username" value="{{ Auth::user()->name }}">
+		                <input type="hidden" name="project_id" value="{{$project->id}}">
 
+		                <button type="submit" id="batton" class="btn btn-primary">Paremti</button>
+		            </form></center>
+				  </div>
+				</div>
+
+			  </div>
+			</div>
+		@endforeach
+
+{{-- About --}}
 		<div id="modalFour" class="modal">
 		  <!-- Modal content -->
 		  <div class="modal-content">
@@ -263,12 +269,10 @@
 			</p>
 		  </div>
 		</div>
-
         <script type="text/javascript" charset="utf-8">
 			var wtpQualitySign_projectId  = 124496;
 			var wtpQualitySign_language   = "lt";
 		</script><script src="https://bank.paysera.com/new/js/project/wtpQualitySigns.js" type="text/javascript" charset="utf-8"></script>
-
 
 
 
@@ -295,5 +299,22 @@
 			  }
 			}
 		</script>
+		@auth
+			<script>
+			function points(){
+			    var points = {{ Auth::user()->points }};
+			    var cur = document.getElementById('amount').value;
+			    console.log(cur);
+			    if (points < cur) {
+			    	document.getElementById("batton").disabled = true;
+			    	document.getElementById("batton").title = "Neturite pakankamai taškų";
+			    }
+			    if (points >= cur) {
+			    	document.getElementById("batton").disabled = false;
+			    }
+
+			}
+			</script>
+		@endauth
     </body>
 </html>
