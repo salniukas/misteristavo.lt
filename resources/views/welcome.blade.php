@@ -236,7 +236,9 @@
 		            <center><form action="/donate" method="post">
 		                @csrf
 		                <label for="amount">Kiek taškų norite skirti?</label><br>
+
 		                <input type="number" name="amount" id="amount{{$project->id}}" onkeyup="points{{$project->id}}()" onclick="points{{$project->id}}()" min="1" required  style="width: 50px;"><br><br>
+		                <p>Jūsų turimi taškai: {{ Auth::user()->points }}</p>
 
 		                <input type="hidden" name="username" value="{{ Auth::user()->name }}">
 		                <input type="hidden" name="project_id" value="{{$project->id}}">
