@@ -61,7 +61,7 @@ class HomeController extends Controller
 
             return redirect('/home');
         }else{
-            return 500;
+            return "Nepakanka taškų";
         }
     }
 }

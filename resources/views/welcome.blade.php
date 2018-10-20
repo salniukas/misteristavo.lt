@@ -236,12 +236,12 @@
 		            <center><form action="/donate" method="post">
 		                @csrf
 		                <label for="amount">Kiek taškų norite skirti?</label><br>
-		                <input type="number" name="amount" id="amount" onkeyup="points()" onclick="points()" min="1" required  style="width: 50px;"><br><br>
+		                <input type="number" name="amount" id="amount{{$project->id}}" onkeyup="points{{$project->id}}()" onclick="points{{$project->id}}()" min="1" required  style="width: 50px;"><br><br>
 
 		                <input type="hidden" name="username" value="{{ Auth::user()->name }}">
 		                <input type="hidden" name="project_id" value="{{$project->id}}">
 
-		                <button type="submit" id="batton" class="btn btn-primary">Paremti</button>
+		                <button type="submit" id="batton{{$project->id}}" class="btn btn-primary">Paremti</button>
 		            </form></center>
 				  </div>
 				</div>
@@ -304,21 +304,23 @@
 			}
 		</script>
 		@auth
+		@foreach($projects as $project)
 			<script>
-			function points(){
+			function points{{$project->id}}(){
 			    var points = {{ Auth::user()->points }};
-			    var cur = document.getElementById('amount').value;
+			    var cur = document.getElementById('amount{{$project->id}}').value;
 			    console.log(cur);
 			    if (points < cur) {
-			    	document.getElementById("batton").disabled = true;
-			    	document.getElementById("batton").title = "Neturite pakankamai taškų";
+			    	document.getElementById("batton{{$project->id}}").disabled = true;
+			    	document.getElementById("batton{{$project->id}}").title = "Neturite pakankamai taškų";
 			    }
 			    if (points >= cur) {
-			    	document.getElementById("batton").disabled = false;
+			    	document.getElementById("batton{{$project->id}}").disabled = false;
 			    }
 
 			}
 			</script>
+		@endforeach
 		@endauth
     </body>
 </html>
