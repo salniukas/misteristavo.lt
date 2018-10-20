@@ -40,12 +40,6 @@ class HomeController extends Controller
 
         return view('home')->with('grouped', $grouped)->with('projects', $projects);
     }
-    public function main()
-    {
-
-        $projects = Project::All();
-        return view('welcome')->with('projects', $projects);
-    }
 
     public function donate(Request $request)
     {
