@@ -63,7 +63,7 @@ class PayseraGateway extends Controller
 		  $amount = $params['amount'] / 100;
 		  $order = Order::where('email', $p_email)->first();
 		  $user = User::where('email', $p_email)->first();
-		  $user->points = $amount;
+		  $user->points = $user->points + $amount;
 		  $user->save();
 		  $order->approved = 'done';
 		  $order->save();
