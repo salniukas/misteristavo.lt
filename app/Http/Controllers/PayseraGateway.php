@@ -8,6 +8,7 @@ Use Log;
 use App\Order;
 use App\User;
 use Auth;
+use App\Point_transactions;
 
 class PayseraGateway extends Controller
 {
