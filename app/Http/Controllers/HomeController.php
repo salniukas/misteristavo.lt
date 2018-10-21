@@ -37,7 +37,7 @@ class HomeController extends Controller
         $grouped->toArray(); 
         Log::info($grouped);
         $projects = Project::all();
-
+        
         return view('home')->with('grouped', $grouped)->with('projects', $projects);
     }
 
