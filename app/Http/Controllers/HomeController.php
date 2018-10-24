@@ -10,6 +10,8 @@ use App\Project;
 use Auth;
 use App\User;
 use App\Point_transactions;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 
 class HomeController extends Controller
 {
@@ -58,10 +60,17 @@ class HomeController extends Controller
             Point_transactions::Create(['project' => $project->display_name, 'username' => $user->name, 'amount' => $request->amount]);
             $user->save();
             $project->save();
-
+            if($project->id == 1) {
+                $client = new Client();
+                $URI = 'https://visata.tryskubai.lt/whitelist/'. $user->email;
+                $params['headers'] = ['Content-Type' => 'application/json'];
+                $params['form_params'] = array('Adress' => $user->email);
+                $response = $client->post($URI, $params);
+            }
             return redirect('/home');
         }else{
             return "Nepakanka taškų";
         }
+
     }
 }
