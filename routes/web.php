@@ -31,7 +31,16 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('/apmokejimas', function () { return view('payment'); });
 	Route::post('/donate', 'HomeController@donate');
 });
-Route::post('/paysera/redirect', 'PayseraGateway@redirect')->name('paysera-redirect');
+Route::post('/paslaugos/store/', 'PayseraGateway@store');
+Route::get('/paslaugos/ready/{id}', 'PayseraGateway@ready')->name('Order-ready');
+Route::get('/paslaugos/apmoketi/{id}', 'PayseraGateway@redirect')->name('Order-Pay');
+
 Route::get('/paysera/callback', 'PayseraGateway@callback')->name('paysera-callback');
-Route::get('/paysera/uzsakymas-pavyko', function () { return view('accept'); });
-Route::get('/paysera/uzsakymas-nepavyko', function () { return view('paysera.success'); });
+Route::get('/uzsakymas-pavyko', function () { return view('accept'); });
+Route::get('/uzsakymas-nepavyko', function () { return view('fail'); });
+Route::post('/paypal/complete', 'PayseraGateway@paypal')->name('Paypal-callback');
+Route::post('/gift/redeem', 'HomeController@redeem');
+Route::get('/sos', 'HomeController@accept');
+
+
+

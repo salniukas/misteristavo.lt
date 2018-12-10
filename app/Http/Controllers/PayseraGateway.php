@@ -12,32 +12,44 @@ use App\Point_transactions;
 
 class PayseraGateway extends Controller
 {
-    public function redirect (Request $request)
+	public function store(Request $request)
+	{
+		Order::create(request(['username', 'email', 'amount']));
+		$order = Order::orderBy('created_at', 'DESC')->firstOrFail();
+
+		return redirect('https://misteristavo.lt/paslaugos/ready/'. $order->id);
+	}
+
+    public function ready($id)
+	{
+		$order = Order::find($id);
+		
+		return view('pay')->with('order', $order);
+	}
+
+    public function redirect ($id)
 	{
 		// Paimame payseros nustatymus iš config/services.php failo
 		
 
 		// Nustatome pagal nuožiūrą
-		Order::create(request(['username', 'email', 'amount']));
-		$order = Order::orderBy('created_at', 'DESC')->firstOrFail();
-		$orderId = $order->id;
-		$amount = $request->amount * 100;
-
-
+		$order = Order::find($id);
 
 		$config = config('services.paysera');
-		Log::info($config);
+
+		// Nustatome pagal nuožiūrą
+		$orderId = $order->id;
 		$params = [
-		    'projectid' => $config['projectid'],
-		    'orderid' => $orderId,
-		    'accepturl' => $config['accepturl'],
-		    'cancelurl' => $config['cancelurl'],
-		    'callbackurl' => $config['callbackurl'],
-		    'version' => $config['version'],
-		    'test' => $config['test'],
-		    'p_email' => $request->email,
-		    'amount' => $amount,
-		 ];
+		'projectid' => $config['projectid'],
+		'orderid' => $orderId,
+		'accepturl' => $config['accepturl'],
+		'cancelurl' => $config['cancelurl'],
+		'callbackurl' => 'https://misteristavo.lt/paysera/callback',
+		'version' => $config['version'],
+		'test' => $config['test'],
+		'p_email' => $order->email,
+		'amount' => $order->amount*100,
+		];
 		// Užkoduojame parametrus ir paruošiame parašą.
 		$params = http_build_query($params);
 		$params = base64_encode($params);
@@ -62,7 +74,7 @@ class PayseraGateway extends Controller
 	      $status = $params['status'];
 		  $p_email = $params['p_email'];
 		  $amount = $params['amount'] / 100;
-		  $order = Order::where('email', $p_email)->first();
+		  $order = Order::where('email', $p_email)->where('amount', $amount)->where('approved', 'pending')->first();
 		  $user = User::where('email', $p_email)->first();
 		  $user->points = $user->points + $amount;
 		  $user->save();
@@ -73,4 +85,27 @@ class PayseraGateway extends Controller
 	 
 	 return response('OK', 200);
 	}
+
+	public function paypal(Request $request){
+      $response = array(
+          'status' => 'success',
+          'msg' => $request->message,
+      );
+      $id = $request->message;
+      
+      $order = Order::find($id);
+      $amount = $order->amount;
+      $order->approved = "done";
+	  $order->save();
+      $user = User::where('email', $order->email)->first();
+      $user->points = $user->points + $amount;
+	  $user->save();
+
+      
+
+      return response()->json($response);
+      return redirect('/');
+      
+
+   }
 }

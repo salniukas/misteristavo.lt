@@ -37,11 +37,11 @@ return [
     'paysera' => [
         'projectid' => env('PAYSERA_ID'),
         'password' => env('PAYSERA_PASS'),
-        'accepturl' => 'http://misteristavo.lt/paysera/uzsakymas-pavyko',
-        'cancelurl' => 'http://misteristavo.lt/paysera/uzsakymas-nepavyko',
+        'accepturl' => 'http://misteristavo.lt/uzsakymas-pavyko',
+        'cancelurl' => 'http://misteristavo.lt/uzsakymas-nepavyko',
         'callbackurl' => 'http://misteristavo.lt/paysera/callback',
         'version' => '1.6',
-        'test' => 1,
+        'test' => 0,
     ],
 
 ];

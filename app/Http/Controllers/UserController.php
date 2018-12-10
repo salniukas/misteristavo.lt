@@ -95,7 +95,7 @@ class UserController extends Controller {
     public function edit($id) {
         $user = User::findOrFail($id); //Get user with specified id
         $roles = Role::get(); //Get all roles
-        $transactions = Point_transactions::where('username', $user->name)->get();
+        $transactions = Point_transactions::where('username', $user->id)->get();
         $grouped = $transactions->groupBy('project');
         $grouped->toArray(); 
         $projects = Project::all();

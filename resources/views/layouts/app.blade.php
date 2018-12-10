@@ -59,12 +59,18 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Atsijungti') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+                                    @if(Auth::user()->hasRole('Admin'))
+                                    <hr>
+                                        <a class="dropdown-item" href="https://misteristavo.lt/users">Vartotojai</a>
+                                        <a class="dropdown-item" href="https://misteristavo.lt/users">Taškų Išklotinė</a>
+                                        <a class="dropdown-item" href="https://misteristavo.lt/users">Pildymų Išklotinė</a>
+                                    @endif
                                 </div>
                             </li>
                         @endguest

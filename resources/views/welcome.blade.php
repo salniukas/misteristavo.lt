@@ -20,6 +20,7 @@
                 font-weight: 200;
                 height: 100vh;
                 margin: 0;
+                overflow-y: hidden;
             }
 
             .full-height {
@@ -171,7 +172,7 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+        <div class="flex-center position-ref full-height" style="margin-top: 90px;">
 
             <div class="content">
                 <div class="title m-b-md">
@@ -191,7 +192,7 @@
                         @endauth
                     @endif
                     <div class="dropdown">
-					  <button class="dropbtn">Kontaktai</button>
+					  <button class="dropbtn" style="color: #636b6f; font-weight: bold;">Kontaktai</button>
 					  <div class="dropdown-content">
 					    <p>Kotryna Kapočiūnaitė</p>
 					    <p>misteristavo@gmail.com</p>
@@ -200,13 +201,17 @@
 					</div>
 					<a href="#" onclick="return false;" class="button dropbtn" data-modal="modalFour">Apie</a>
                     <div class="dropdown">
-					  <button class="dropbtn">Fondų Sąrašas</button>
+					  <button class="dropbtn" style="color: #636b6f; font-weight: bold;">Fondų Sąrašas</button>
 					  <div class="dropdown-content">
 					  	@foreach($projects as $project)
 					    	<button class="button" data-modal="modal{{ $project->id }}">{{ $project->display_name }}</button>
 					    @endforeach
 					  </div>
 					</div>
+                </div>
+                <div class="content" style="margin-top: 200px;">
+                	<p style="color: #636b6f; font-weight: bold;">Partneriai</p>
+                	<a href="https://visata.tryskubai.lt" target="_blank"><img src="https://visata.tryskubai.lt/img/Visatos_Logo.svg" style="width: 180px; margin-right: 10px;"></a>
                 </div>
             </div>
         </div>

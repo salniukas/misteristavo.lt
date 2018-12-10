@@ -35,4 +35,9 @@ class User extends Authenticatable
     {   
         $this->attributes['password'] = bcrypt($password);
     }
+
+    public function gifts()
+    {
+        return $this->belongsToMany('App\Gift', 'gifts_user','user_id','gift_id')->withPivot('isUsed', 'id', 'username')->withTimestamps();
+    }
 }
