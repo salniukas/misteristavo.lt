@@ -40,7 +40,7 @@ Route::get('/uzsakymas-pavyko', function () { return view('accept'); });
 Route::get('/uzsakymas-nepavyko', function () { return view('fail'); });
 Route::post('/paypal/complete', 'PayseraGateway@paypal')->name('Paypal-callback');
 Route::post('/gift/redeem', 'HomeController@redeem');
-Route::get('/sos', 'HomeController@accept');
+Route::get('/admin/LF5saukSA2h524WS', 'PublicController@membership');
 
 
 

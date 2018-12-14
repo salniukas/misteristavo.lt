@@ -38,6 +38,6 @@ class User extends Authenticatable
 
     public function gifts()
     {
-        return $this->belongsToMany('App\Gift', 'gifts_user','user_id','gift_id')->withPivot('isUsed', 'id', 'username')->withTimestamps();
+        return $this->belongsToMany('App\Gift', 'gifts_user','user_id','gift_id')->withPivot('isUsed', 'id', 'username', 'until')->withTimestamps();
     }
 }

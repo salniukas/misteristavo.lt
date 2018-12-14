@@ -14,6 +14,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use Thedudeguy\Rcon;
 use Carbon\Carbon;
+use App\Gift;
 
 class HomeController extends Controller
 {
@@ -89,7 +90,9 @@ class HomeController extends Controller
             {
                     $rcon->sendCommand("lp user ".$request->name." parent switchprimarygroup player");
                     $piva = Auth::user()->gifts()->wherePivot('id', $request->id)->first()->pivot;
+
                     $piva->isUsed = 1;
+                    $piva->until = Carbon::now('Europe/Vilnius')->addMonth()->format('Y-m-d'); 
                     $piva->username = $request->name;
                     $piva->save();
                     return redirect('/');

@@ -203,9 +203,9 @@
                     <div class="dropdown">
 					  <button class="dropbtn" style="color: #636b6f; font-weight: bold;">Fondų Sąrašas</button>
 					  <div class="dropdown-content">
-					  	@foreach($projects as $project)
+					  	{{-- @foreach($projects as $project) --}}
 					    	<button class="button" data-modal="modal{{ $project->id }}">{{ $project->display_name }}</button>
-					    @endforeach
+					    {{-- @endforeach --}}
 					  </div>
 					</div>
                 </div>
@@ -215,7 +215,7 @@
                 </div>
             </div>
         </div>
-        @foreach($projects as $project)
+        {{-- @foreach($projects as $project) --}}
 			<div id="modal{{ $project->id }}" class="modal">
 			  <div class="modal-content">
 			    <span class="close">&times;</span>
@@ -258,7 +258,7 @@
 
 			  </div>
 			</div>
-		@endforeach
+		{{-- @endforeach --}}
 
 {{-- About --}}
 		<div id="modalFour" class="modal">
@@ -311,7 +311,7 @@
 			}
 		</script>
 		@auth
-		@foreach($projects as $project)
+		{{-- @foreach($projects as $project) --}}
 			<script>
 			function points{{$project->id}}(){
 			    var points = {{ Auth::user()->points }};
@@ -327,7 +327,7 @@
 
 			}
 			</script>
-		@endforeach
+		{{-- @endforeach --}}
 		@endauth
     </body>
 </html>

@@ -96,13 +96,19 @@
                         <th>Dovana</th> 
                         <th>Projektas</th>
                         <th>Gavimo Data</th>
+                        <th>Galioja iki</th>
                         <th>Veiksmai</th>
                       </tr>
                       @foreach($gifts as $gift)
                       <tr>
                         <td title="{{ $gift->description }}">{{ $gift->name }}</td>
                         <td>{{ $gift->project_display}}</td>
-                        <td>{{ $gift->pivot->created_at }}</td>
+                        @php
+                         $date = new DateTime($gift->pivot->created_at);
+						 $gavo = $date->format('Y-m-d');
+                        @endphp
+                        <td>{{ $gavo }}</td>
+                        <td>{{ $gift->pivot->until }}</td>
                         <td>@if($gift->type == 'server')
                               @if($gift->pivot->isUsed === 0)
                         		      <button type="button" id="myBtn{{$gift->pivot->id}}" class="btn-sm btn-success" data-toggle="modal" data-target="#myModal{{$gift->pivot->id}}">Aktyvuoti</button>
