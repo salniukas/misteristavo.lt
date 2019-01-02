@@ -19,8 +19,8 @@ class PublicController extends Controller
     public function main()
     {
 
-        $project = Project::where('id', 2)->first();
-        return view('welcome')->with('project', $project);
+        $projects = Project::all();
+        return view('welcome')->with('projects', $projects);
     }
 
     public function membership()

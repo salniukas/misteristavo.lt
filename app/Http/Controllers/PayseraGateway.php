@@ -86,26 +86,26 @@ class PayseraGateway extends Controller
 	 return response('OK', 200);
 	}
 
-	public function paypal(Request $request){
-      $response = array(
-          'status' => 'success',
-          'msg' => $request->message,
-      );
-      $id = $request->message;
+	// public function paypal(Request $request){
+ //      $response = array(
+ //          'status' => 'success',
+ //          'msg' => $request->message,
+ //      );
+ //      $id = $request->message;
       
-      $order = Order::find($id);
-      $amount = $order->amount;
-      $order->approved = "done";
-	  $order->save();
-      $user = User::where('email', $order->email)->first();
-      $user->points = $user->points + $amount;
-	  $user->save();
+ //      $order = Order::find($id);
+ //      $amount = $order->amount;
+ //      $order->approved = "done";
+	//   $order->save();
+ //      $user = User::where('email', $order->email)->first();
+ //      $user->points = $user->points + $amount;
+	//   $user->save();
 
       
 
-      return response()->json($response);
-      return redirect('/');
+ //      return response()->json($response);
+ //      return redirect('/');
       
 
-   }
+ //   }
 }

@@ -37,8 +37,8 @@ class Kernel extends ConsoleKernel
     	$schedule->call(function(){
 	        $gift = Gift::find(1);
 	        $users = User::has('gifts')->get();
-            Log::info("-*-*-AUTO REMOVER TEST-*-*-")
-	        foreach ($users as $user) {
+            Log::info("-*-*-AUTO REMOVER TEST-*-*-");
+	        Foreach ($users as $user) {
 	            $asd = $user->gifts()->wherePivot('gift_id', 1)->first();
 	            if ($asd->pivot->username == "") { 
 	            	//
@@ -68,7 +68,7 @@ class Kernel extends ConsoleKernel
 	        }
         
             
-        }->dailyAt('23:00');
+        })->dailyAt('23:00');
     }
 
     /**

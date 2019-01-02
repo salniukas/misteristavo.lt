@@ -203,9 +203,9 @@
                     <div class="dropdown">
 					  <button class="dropbtn" style="color: #636b6f; font-weight: bold;">Fondų Sąrašas</button>
 					  <div class="dropdown-content">
-					  	{{-- @foreach($projects as $project) --}}
+					  	@foreach($projects as $project)
 					    	<button class="button" data-modal="modal{{ $project->id }}">{{ $project->display_name }}</button>
-					    {{-- @endforeach --}}
+					    @endforeach
 					  </div>
 					</div>
                 </div>
@@ -215,7 +215,7 @@
                 </div>
             </div>
         </div>
-        {{-- @foreach($projects as $project) --}}
+        @foreach($projects as $project)
 			<div id="modal{{ $project->id }}" class="modal">
 			  <div class="modal-content">
 			    <span class="close">&times;</span>
@@ -227,7 +227,13 @@
 			    <p style="text-align: center;">
 			    	{!! $project->description !!}<br><br>
 				</p>
-				<center><h3>Surinkta Taškų: {{$project->current}}/{{$project->max}}</h3></center>
+				<center><h3>Surinkta Taškų: {{$project->current}}/
+					@if($project->max === -1)
+						{!! "&infin;" !!}
+					@else
+						{{$project->max}}
+					@endif
+					</h3></center>
 				@auth
 					<center><button class="button" data-modal="modal{{$project->id}}d">Paremti šį projektą</button></center>
 				@else
@@ -258,7 +264,7 @@
 
 			  </div>
 			</div>
-		{{-- @endforeach --}}
+		@endforeach
 
 {{-- About --}}
 		<div id="modalFour" class="modal">
@@ -311,7 +317,7 @@
 			}
 		</script>
 		@auth
-		{{-- @foreach($projects as $project) --}}
+		@foreach($projects as $project)
 			<script>
 			function points{{$project->id}}(){
 			    var points = {{ Auth::user()->points }};
@@ -327,7 +333,7 @@
 
 			}
 			</script>
-		{{-- @endforeach --}}
+		@endforeach
 		@endauth
     </body>
 </html>

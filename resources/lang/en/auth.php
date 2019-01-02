@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => 'Neteisingas slaptažodis ar el.pašto adresas',
+    'throttle' => 'Perdaug bandymu prisijungti, bandykite iš naujo už :seconds sekundžių.',
 
 ];
